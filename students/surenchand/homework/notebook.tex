@@ -1,0 +1,1018 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework Week 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Import the libraries required}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} this allows plots to appear directly in the notebook}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZti{}/workspace/dat11syd/students/surenchand/data/Airplane\PYZus{}Crashes\PYZus{}and\PYZus{}Fatalities\PYZus{}Since\PYZus{}1908.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{head}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <bound method NDFrame.head of             Date   Time                                           Location  \textbackslash{}
+        0     09/17/1908  17:18                                Fort Myer, Virginia   
+        1     07/12/1912  06:30                            AtlantiCity, New Jersey   
+        2     08/06/1913    NaN                 Victoria, British Columbia, Canada   
+        3     09/09/1913  18:30                                 Over the North Sea   
+        4     10/17/1913  10:30                         Near Johannisthal, Germany   
+        5     03/05/1915  01:00                                    Tienen, Belgium   
+        6     09/03/1915  15:20                              Off Cuxhaven, Germany   
+        7     07/28/1916    NaN                              Near Jambol, Bulgeria   
+        8     09/24/1916  01:00                                Billericay, England   
+        9     10/01/1916  23:45                               Potters Bar, England   
+        10    11/21/1916    NaN                                     Mainz, Germany   
+        11    11/28/1916  23:45                       Off West Hartlepool, England   
+        12    03/04/1917    NaN                                 Near Gent, Belgium   
+        13    03/30/1917    NaN                               Off Northern Germany   
+        14    05/14/1917  05:15                       Near Texel Island, North Sea   
+        15    06/14/1917  08:45                     Off Vlieland Island, North Sea   
+        16    08/21/1917  07:00                                Off western Denmark   
+        17    10/20/1917  07:45                             Near Luneville, France   
+        18    04/07/1918  21:30                             Over the Mediterranean   
+        19    05/10/1918    NaN                      Off Helgoland Island, Germany   
+        20    08/11/1918  10:00                          Ameland Island, North Sea   
+        21    12/16/1918    NaN                              Elizabeth, New Jersey   
+        22    05/25/1919    NaN                                    Cleveland, Ohio   
+        23    07/19/1919    NaN                              Dix Run, Pennsylvania   
+        24    10/02/1919    NaN                                 Newcastle, England   
+        25    10/14/1919    NaN                             Cantonsville, Maryland   
+        26    10/20/1919    NaN                                    English Channel   
+        27    10/30/1919    NaN                            Long Valley, New Jersey   
+        28    03/10/1920    NaN                                 New Paris, Indiana   
+        29    03/30/1920    NaN                                 Newark, New Jersey   
+        {\ldots}          {\ldots}    {\ldots}                                                {\ldots}   
+        5238  11/13/2008  11:35                                     Fallujah, Iraq   
+        5239  11/16/2008  10:32         Thormanby Island, British Columbia, Canada   
+        5240  11/27/2008  17:00                              Off Perpignan, France   
+        5241  12/03/2008  12:13                              San Juan, Puerto Rico   
+        5242  12/11/2008  06:25                             Off Sabine Pass, Texas   
+        5243  12/15/2008  16:40                       Off Turks and Caicos Islands   
+        5244  01/04/2009  15:30                               Near Houma Louisiana   
+        5245  01/15/2009  15:06                                 New York, New York   
+        5246  02/07/2009  14:00                                 Manacapuru, Brazil   
+        5247  02/07/2009  06:30                                    Trigoria, Italy   
+        5248  02/12/2009  22:17                          Clarence Center, New York   
+        5249  02/15/2009  16:05                                      Chanco, Chile   
+        5250  02/20/2009  04:10                                       Luxor, Egypt   
+        5251  02/25/2009  10:31                             Amsterdam, Netherlands   
+        5252  03/09/2009  05:40                              Lake Victoria, Uganda   
+        5253  03/12/2009  09:48                        Off St. Johns, Newfoundland   
+        5254  03/22/2009  14:28                                     Butte, Montana   
+        5255  03/23/2009  06:48                                       Tokyo, Japan   
+        5256  04/01/2009  14:00                              Off Crimond, Scotland   
+        5257  04/06/2009  12:30                                 Bandung, Indonesia   
+        5258  04/09/2009  07:00                             Near Wamena, Indonesia   
+        5259  04/17/2009  10:30                           Mount Gergaji, Indonesia   
+        5260  04/17/2009  15:32                   Canaima National Park, Venezuela   
+        5261  04/29/2009  06:00                 Massamba, DemocratiRepubliof Congo   
+        5262  05/03/2009  12:00                   Near El Alto de Rubio, Venezuela   
+        5263  05/20/2009  06:30                             Near Madiun, Indonesia   
+        5264  05/26/2009    NaN                  Near Isiro, DemocratiRepubliCongo   
+        5265  06/01/2009  00:15  AtlantiOcean, 570 miles northeast of Natal, Br{\ldots}   
+        5266  06/07/2009  08:30       Near Port Hope Simpson, Newfoundland, Canada   
+        5267  06/08/2009    NaN                  State of Arunachal Pradesh, India   
+        
+                                            Operator Flight \#  \textbackslash{}
+        0                       Military - U.S. Army      NaN   
+        1                       Military - U.S. Navy      NaN   
+        2                                    Private        -   
+        3                     Military - German Navy      NaN   
+        4                     Military - German Navy      NaN   
+        5                     Military - German Navy      NaN   
+        6                     Military - German Navy      NaN   
+        7                     Military - German Army      NaN   
+        8                     Military - German Navy      NaN   
+        9                     Military - German Navy      NaN   
+        10                    Military - German Army      NaN   
+        11                    Military - German Navy      NaN   
+        12                    Military - German Army      NaN   
+        13                    Military - German Navy      NaN   
+        14                    Military - German Navy      NaN   
+        15                    Military - German Navy      NaN   
+        16                    Military - German Navy      NaN   
+        17                    Military - German Navy      NaN   
+        18                    Military - German Navy      NaN   
+        19                    Military - German Navy      NaN   
+        20                    Military - German Navy      NaN   
+        21                    US Aerial Mail Service      NaN   
+        22                    US Aerial Mail Service      NaN   
+        23                    US Aerial Mail Service      NaN   
+        24             Aircraft Transport and Travel      NaN   
+        25                    US Aerial Mail Service      NaN   
+        26             Aircraft Transport and Travel      NaN   
+        27                    US Aerial Mail Service      NaN   
+        28                    US Aerial Mail Service      NaN   
+        29                    US Aerial Mail Service      NaN   
+        {\ldots}                                      {\ldots}      {\ldots}   
+        5238                   Falcon Aviation Group      NaN   
+        5239                  PacifiCoastal Airlines      NaN   
+        5240  XL Airways leased from Air New Zealand      NaN   
+        5241          Webstas Aviation Services Inc.      NaN   
+        5242                   Rotorcraft Leasing Co      NaN   
+        5243                        Alantis Aviation      NaN   
+        5244               Petroleum Helicopters Inc      NaN   
+        5245                              US Airways     1549   
+        5246                         Aerotaxi Manaus      NaN   
+        5247                       Air One Executive      NaN   
+        5248       Continental Connection/Colgan Air     3407   
+        5249                          Flight Service      NaN   
+        5250                                Aerolift      NaN   
+        5251                        Turkish Airlines     1951   
+        5252                                Aerolift      NaN   
+        5253                      Cougar Helicopters      NaN   
+        5254                       Eagle Cap Leasing      NaN   
+        5255                                   FedEx       80   
+        5256               Bond Offshore Helicopters      NaN   
+        5257         Military - Indonesian Air Force      NaN   
+        5258                        Aviastar Mandiri      NaN   
+        5259                              Mimika Air      514   
+        5260                         Aerotuy airline      NaN   
+        5261                                Bako Air      NaN   
+        5262              Military - Venezuelan Army      NaN   
+        5263         Military - Indonesian Air Force      NaN   
+        5264                             Service Air      NaN   
+        5265                              Air France      447   
+        5266                              Strait Air      NaN   
+        5267             Military - Indian Air Force      NaN   
+        
+                                                          Route  \textbackslash{}
+        0                                         Demonstration   
+        1                                           Test flight   
+        2                                                   NaN   
+        3                                                   NaN   
+        4                                                   NaN   
+        5                                                   NaN   
+        6                                                   NaN   
+        7                                                   NaN   
+        8                                                   NaN   
+        9                                                   NaN   
+        10                                                  NaN   
+        11                                                  NaN   
+        12                                                  NaN   
+        13                                                  NaN   
+        14                                                  NaN   
+        15                                                  NaN   
+        16                                                  NaN   
+        17                                                  NaN   
+        18                                                  NaN   
+        19                                                  NaN   
+        20                                                  NaN   
+        21                                                  NaN   
+        22                                                  NaN   
+        23                                                  NaN   
+        24                                                  NaN   
+        25                                                  NaN   
+        26                                                  NaN   
+        27                                                  NaN   
+        28                                                  NaN   
+        29                                                  NaN   
+        {\ldots}                                                 {\ldots}   
+        5238                         al-Asad air base - Baghdad   
+        5239              Vancouver - Powell River - Toba Inlet   
+        5240                                           Training   
+        5241              Tortola Virgin Islands - San Juan, PR   
+        5242                         Sabine Pass - Oil Platform   
+        5243        Santiago, Dominican Republi- Providenciales   
+        5244              Bayou Penchant - Off shore oil fields   
+        5245                        New York, NY- Charlotte, NC   
+        5246                                      Coari - Manus   
+        5247                                     Rome - Bologna   
+        5248                         Newark, N.J. - Buffalo, NY   
+        5249                                                NaN   
+        5250  Entebbe, Uganda - Luxor, Egypt - Niklaev, Ukraine   
+        5251          Istanbul, Turkey - Amsterdam, Netherlands   
+        5252               Entebbe, Uganda - Mogadishu, Somalia   
+        5253                      St. Johns - Hibernia platform   
+        5254                           Oroville, CA - Butte, MT   
+        5255                    Guangzhou, China - Tokyo, Japan   
+        5256                            Miller field - Aberdeen   
+        5257                                 Militiary training   
+        5258                                  Jayapura - Wamena   
+        5259                                      Ilaga - Mulia   
+        5260                                 Canaima - Porlamar   
+        5261  Bangui, CAR- Brazzaville, Congo - Harare, Zimb{\ldots}   
+        5262                                             Patrol   
+        5263                                   Jakarta - Maduin   
+        5264                                       Goma - Isiro   
+        5265                             Rio de Janeiro - Paris   
+        5266          Lourdes de BlanSablon - Port Hope Simpson   
+        5267                                 Mechuka for Jorhat   
+        
+                                             Type Registration       cn/In  Aboard  \textbackslash{}
+        0                        Wright Flyer III          NaN           1     2.0   
+        1                               Dirigible          NaN         NaN     5.0   
+        2                        Curtiss seaplane          NaN         NaN     1.0   
+        3                  Zeppelin L-1 (airship)          NaN         NaN    20.0   
+        4                  Zeppelin L-2 (airship)          NaN         NaN    30.0   
+        5                  Zeppelin L-8 (airship)          NaN         NaN    41.0   
+        6                 Zeppelin L-10 (airship)          NaN         NaN    19.0   
+        7           Schutte-Lanz S-L-10 (airship)          NaN         NaN    20.0   
+        8                 Zeppelin L-32 (airship)          NaN         NaN    22.0   
+        9                 Zeppelin L-31 (airship)          NaN         NaN    19.0   
+        10               Super Zeppelin (airship)          NaN         NaN    28.0   
+        11                Zeppelin L-34 (airship)          NaN         NaN    20.0   
+        12                                Airship          NaN         NaN    20.0   
+        13           Schutte-Lanz S-L-9 (airship)          NaN         NaN    23.0   
+        14                Zeppelin L-22 (airship)          NaN         NaN    21.0   
+        15                Zeppelin L-43 (airship)          NaN         NaN    24.0   
+        16                Zeppelin L-23 (airship)          NaN         NaN    18.0   
+        17                Zeppelin L-44 (airship)          NaN         NaN    18.0   
+        18                Zeppelin L-59 (airship)          NaN         NaN    23.0   
+        19                Zeppelin L-70 (airship)          NaN         NaN    22.0   
+        20                Zeppelin L-53 (airship)          NaN         NaN    19.0   
+        21                      De Havilland DH-4           97         NaN     1.0   
+        22                      De Havilland DH-4           61         NaN     1.0   
+        23                      De Havilland DH-4           82         NaN     1.0   
+        24                      De Havilland DH-4          NaN         NaN     1.0   
+        25                          Curtiss R-4LM           32         NaN     1.0   
+        26                      De Havilland DH-4       G-EAHG         NaN     NaN   
+        27                      De Havilland DH.4           77         NaN     1.0   
+        28                      De Havilland DH-4           65         NaN     1.0   
+        29                      De Havilland DH-4           72         NaN     1.0   
+        {\ldots}                                   {\ldots}          {\ldots}         {\ldots}     {\ldots}   
+        5238                        Antonov An-12       S9-SAO      346908     7.0   
+        5239                  Grumman G-21A Goose       C-FPCK        1187     8.0   
+        5240                      Airbus A320-232       D-AXLA        2500     7.0   
+        5241          Rockwell International 690B      N318WA        11444     3.0   
+        5242           Bell 206-L4 Jet Ranger III       N180AL       52104     3.0   
+        5243  Britten Norman BN-2A Trislander Mk3       N650LP        1029    12.0   
+        5244                       Sikorsky S-76C        N748P      760629     9.0   
+        5245                      Airbus A320-214       N106US        1044   155.0   
+        5246                Bandeirante EMB-110P1       PT-SEA      110352    28.0   
+        5247              Cessna 650 Citation III       I-FEEV    650-0105     2.0   
+        5248            Bombardier DHC-8-402 Q400       N200WQ        4200    49.0   
+        5249                           Bell UH-1H          NaN         NaN    13.0   
+        5250                          Antonov 12V       S9-SVN     6344310     5.0   
+        5251                       Boeing 737-8F2       TC-JGE  29789/1065   134.0   
+        5252                      Ilyushin Il-76T       S9-SAB   073410301    11.0   
+        5253                       Sikorsky S-92A       C-GZCH      920048    18.0   
+        5254                     Pilatus PC-12/45       N128CM         403    14.0   
+        5255              McDonnell Douglas MD-11       N526FE   48600/560     2.0   
+        5256     Eurocopter AS 332L2 Super Puma 2          NaN         NaN    16.0   
+        5257          Fokker F-27 Friendship 400M       A-2703       10538    24.0   
+        5258        British Aerospace BAe-146-300       PK-BRD       E3189     6.0   
+        5259                         Pilatus PC-6       PK-LTJ         959    11.0   
+        5260            Cessna 208B Grand Caravan      YV-1181   208B-0695    11.0   
+        5261                     Boeing B-737-200      TL-ADM    22264/753     7.0   
+        5262                                Mi-35     EV08114          NaN    18.0   
+        5263              Lockheed C-130 Hercules       A-1325        1982   112.0   
+        5264                        Antonov An-26       9Q-CSA        5005     4.0   
+        5265                      Airbus A330-203       F-GZCP         660   228.0   
+        5266     Britten-Norman BN-2A-27 Islander      C-FJJR          424     1.0   
+        5267                        Antonov An-32          NaN         NaN    13.0   
+        
+              Fatalities  Ground                                            Summary  
+        0            1.0     0.0  During a demonstration flight, a U.S. Army fly{\ldots}  
+        1            5.0     0.0  First U.S. dirigible Akron exploded just offsh{\ldots}  
+        2            1.0     0.0  The first fatal airplane accident in Canada oc{\ldots}  
+        3           14.0     0.0  The airship flew into a thunderstorm and encou{\ldots}  
+        4           30.0     0.0  Hydrogen gas which was being vented was sucked{\ldots}  
+        5           21.0     0.0  Crashed into trees while attempting to land af{\ldots}  
+        6           19.0     0.0  Exploded and burned near Neuwerk Island,  when{\ldots}  
+        7           20.0     0.0         Crashed near the Black Sea, cause unknown.  
+        8           22.0     0.0  Shot down by British aircraft crashing in flames.  
+        9           19.0     0.0  Shot down in flames by the British 39th Home D{\ldots}  
+        10          27.0     0.0                                Crashed in a storm.  
+        11          20.0     0.0  Shot down by British anti-aircraft fire and ai{\ldots}  
+        12          20.0     0.0                           Caught fire and crashed.  
+        13          23.0     0.0  Struck by lightning and crashed into the Balti{\ldots}  
+        14          21.0     0.0  Crashed into the sea from an altitude of 3,000{\ldots}  
+        15          24.0     0.0                     Shot down by British aircraft.  
+        16          18.0     0.0                     Shot down by British aircraft.  
+        17          18.0     0.0            Shot down by French anti-aircraft fire.  
+        18          23.0     0.0  Exploded and crashed into the sea off the sout{\ldots}  
+        19          22.0     0.0  Shot down by British aircraft crashing from a {\ldots}  
+        20          19.0     0.0                     Shot down by british aircraft.  
+        21           1.0     0.0                                                NaN  
+        22           1.0     0.0  Caught fire in midair. The pilot leaped from t{\ldots}  
+        23           1.0     0.0                                                NaN  
+        24           1.0     0.0                                                NaN  
+        25           1.0     0.0                                                NaN  
+        26           NaN     NaN                                                NaN  
+        27           1.0     0.0                                                NaN  
+        28           1.0     0.0                                                NaN  
+        29           1.0     0.0                                                NaN  
+        {\ldots}          {\ldots}     {\ldots}                                                {\ldots}  
+        5238         7.0     0.0  The cargo plane, chartered by FedEx, crashed w{\ldots}  
+        5239         7.0     0.0  The charter aircraft crashed into a steep hill{\ldots}  
+        5240         7.0     0.0  The Airbus A320 was leased by XL Airways of Ge{\ldots}  
+        5241         3.0     0.0  The plane struck the side of El Yunque mountai{\ldots}  
+        5242         3.0     0.0  The helicopter ferrying workers to an off shor{\ldots}  
+        5243        12.0     0.0  The charter flight disappeared from radar 35 m{\ldots}  
+        5244         8.0     0.0  A helicopter bound for offshore oil fields wen{\ldots}  
+        5245         0.0     0.0  The plane was taking off from La Guardia Airpo{\ldots}  
+        5246        24.0     0.0  The plane was being used as an air taxi to fer{\ldots}  
+        5247         2.0     0.0  The plane, heading to Bologna to pick up a med{\ldots}  
+        5248        49.0     1.0  The commuter plane crashed while attemptiong t{\ldots}  
+        5249        13.0     0.0  The helicopter was carrying firemen to a nearb{\ldots}  
+        5250         5.0     0.0  While attemping to take off from Luxor, the ca{\ldots}  
+        5251         9.0     0.0  The plane was on final approach to Runway 18R {\ldots}  
+        5252        11.0     0.0  The cargo plane carrying and water purificatio{\ldots}  
+        5253        17.0     0.0  The pilot reported a technical malfunction and{\ldots}  
+        5254        14.0     0.0  The plane crashed 500 feet short of the runway{\ldots}  
+        5255         2.0     0.0  The cargo plane crashed and burst into flame a{\ldots}  
+        5256        16.0     0.0  The helicopter crashed 35 miles East of Crimon{\ldots}  
+        5257        24.0     0.0  While returning from a military training exerc{\ldots}  
+        5258         6.0     0.0  The cargo plane crashed into Gunung Pike mount{\ldots}  
+        5259        11.0     0.0  The passenger plane crashed in poor weather in{\ldots}  
+        5260         1.0     0.0  The plane, carrying 9 tourists, crashed 5 mile{\ldots}  
+        5261         7.0     0.0  Crashed while en route on a ferrying flight. T{\ldots}  
+        5262        18.0     0.0  The helicopter was patrolling along the Venezu{\ldots}  
+        5263        98.0     2.0  While on approach, the military transport cras{\ldots}  
+        5264         4.0     NaN  The cargo plane crashed while on approach to I{\ldots}  
+        5265       228.0     0.0  The Airbus went missing over the AtlantiOcean {\ldots}  
+        5266         1.0     0.0  The air ambulance crashed into hills while att{\ldots}  
+        5267        13.0     0.0  The military transport went missing while en r{\ldots}  
+        
+        [5268 rows x 13 columns]>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Date               0
+        Time            2219
+        Location          20
+        Operator          18
+        Flight \#        4199
+        Route           1706
+        Type              27
+        Registration     335
+        cn/In           1228
+        Aboard            22
+        Fatalities        12
+        Ground            22
+        Summary          390
+        dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Operator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}             Date   Time                                           Location  \textbackslash{}
+        0     09/17/1908  17:18                                Fort Myer, Virginia   
+        1     07/12/1912  06:30                            AtlantiCity, New Jersey   
+        2     08/06/1913    NaN                 Victoria, British Columbia, Canada   
+        3     09/09/1913  18:30                                 Over the North Sea   
+        4     10/17/1913  10:30                         Near Johannisthal, Germany   
+        5     03/05/1915  01:00                                    Tienen, Belgium   
+        6     09/03/1915  15:20                              Off Cuxhaven, Germany   
+        7     07/28/1916    NaN                              Near Jambol, Bulgeria   
+        8     09/24/1916  01:00                                Billericay, England   
+        9     10/01/1916  23:45                               Potters Bar, England   
+        10    11/21/1916    NaN                                     Mainz, Germany   
+        11    11/28/1916  23:45                       Off West Hartlepool, England   
+        12    03/04/1917    NaN                                 Near Gent, Belgium   
+        13    03/30/1917    NaN                               Off Northern Germany   
+        14    05/14/1917  05:15                       Near Texel Island, North Sea   
+        15    06/14/1917  08:45                     Off Vlieland Island, North Sea   
+        16    08/21/1917  07:00                                Off western Denmark   
+        17    10/20/1917  07:45                             Near Luneville, France   
+        18    04/07/1918  21:30                             Over the Mediterranean   
+        19    05/10/1918    NaN                      Off Helgoland Island, Germany   
+        20    08/11/1918  10:00                          Ameland Island, North Sea   
+        21    12/16/1918    NaN                              Elizabeth, New Jersey   
+        22    05/25/1919    NaN                                    Cleveland, Ohio   
+        23    07/19/1919    NaN                              Dix Run, Pennsylvania   
+        24    10/02/1919    NaN                                 Newcastle, England   
+        25    10/14/1919    NaN                             Cantonsville, Maryland   
+        26    10/20/1919    NaN                                    English Channel   
+        27    10/30/1919    NaN                            Long Valley, New Jersey   
+        28    03/10/1920    NaN                                 New Paris, Indiana   
+        29    03/30/1920    NaN                                 Newark, New Jersey   
+        {\ldots}          {\ldots}    {\ldots}                                                {\ldots}   
+        5238  11/13/2008  11:35                                     Fallujah, Iraq   
+        5239  11/16/2008  10:32         Thormanby Island, British Columbia, Canada   
+        5240  11/27/2008  17:00                              Off Perpignan, France   
+        5241  12/03/2008  12:13                              San Juan, Puerto Rico   
+        5242  12/11/2008  06:25                             Off Sabine Pass, Texas   
+        5243  12/15/2008  16:40                       Off Turks and Caicos Islands   
+        5244  01/04/2009  15:30                               Near Houma Louisiana   
+        5245  01/15/2009  15:06                                 New York, New York   
+        5246  02/07/2009  14:00                                 Manacapuru, Brazil   
+        5247  02/07/2009  06:30                                    Trigoria, Italy   
+        5248  02/12/2009  22:17                          Clarence Center, New York   
+        5249  02/15/2009  16:05                                      Chanco, Chile   
+        5250  02/20/2009  04:10                                       Luxor, Egypt   
+        5251  02/25/2009  10:31                             Amsterdam, Netherlands   
+        5252  03/09/2009  05:40                              Lake Victoria, Uganda   
+        5253  03/12/2009  09:48                        Off St. Johns, Newfoundland   
+        5254  03/22/2009  14:28                                     Butte, Montana   
+        5255  03/23/2009  06:48                                       Tokyo, Japan   
+        5256  04/01/2009  14:00                              Off Crimond, Scotland   
+        5257  04/06/2009  12:30                                 Bandung, Indonesia   
+        5258  04/09/2009  07:00                             Near Wamena, Indonesia   
+        5259  04/17/2009  10:30                           Mount Gergaji, Indonesia   
+        5260  04/17/2009  15:32                   Canaima National Park, Venezuela   
+        5261  04/29/2009  06:00                 Massamba, DemocratiRepubliof Congo   
+        5262  05/03/2009  12:00                   Near El Alto de Rubio, Venezuela   
+        5263  05/20/2009  06:30                             Near Madiun, Indonesia   
+        5264  05/26/2009    NaN                  Near Isiro, DemocratiRepubliCongo   
+        5265  06/01/2009  00:15  AtlantiOcean, 570 miles northeast of Natal, Br{\ldots}   
+        5266  06/07/2009  08:30       Near Port Hope Simpson, Newfoundland, Canada   
+        5267  06/08/2009    NaN                  State of Arunachal Pradesh, India   
+        
+                                            Operator Flight \#  \textbackslash{}
+        0                       Military - U.S. Army      NaN   
+        1                       Military - U.S. Navy      NaN   
+        2                                    Private        -   
+        3                     Military - German Navy      NaN   
+        4                     Military - German Navy      NaN   
+        5                     Military - German Navy      NaN   
+        6                     Military - German Navy      NaN   
+        7                     Military - German Army      NaN   
+        8                     Military - German Navy      NaN   
+        9                     Military - German Navy      NaN   
+        10                    Military - German Army      NaN   
+        11                    Military - German Navy      NaN   
+        12                    Military - German Army      NaN   
+        13                    Military - German Navy      NaN   
+        14                    Military - German Navy      NaN   
+        15                    Military - German Navy      NaN   
+        16                    Military - German Navy      NaN   
+        17                    Military - German Navy      NaN   
+        18                    Military - German Navy      NaN   
+        19                    Military - German Navy      NaN   
+        20                    Military - German Navy      NaN   
+        21                    US Aerial Mail Service      NaN   
+        22                    US Aerial Mail Service      NaN   
+        23                    US Aerial Mail Service      NaN   
+        24             Aircraft Transport and Travel      NaN   
+        25                    US Aerial Mail Service      NaN   
+        26             Aircraft Transport and Travel      NaN   
+        27                    US Aerial Mail Service      NaN   
+        28                    US Aerial Mail Service      NaN   
+        29                    US Aerial Mail Service      NaN   
+        {\ldots}                                      {\ldots}      {\ldots}   
+        5238                   Falcon Aviation Group      NaN   
+        5239                  PacifiCoastal Airlines      NaN   
+        5240  XL Airways leased from Air New Zealand      NaN   
+        5241          Webstas Aviation Services Inc.      NaN   
+        5242                   Rotorcraft Leasing Co      NaN   
+        5243                        Alantis Aviation      NaN   
+        5244               Petroleum Helicopters Inc      NaN   
+        5245                              US Airways     1549   
+        5246                         Aerotaxi Manaus      NaN   
+        5247                       Air One Executive      NaN   
+        5248       Continental Connection/Colgan Air     3407   
+        5249                          Flight Service      NaN   
+        5250                                Aerolift      NaN   
+        5251                        Turkish Airlines     1951   
+        5252                                Aerolift      NaN   
+        5253                      Cougar Helicopters      NaN   
+        5254                       Eagle Cap Leasing      NaN   
+        5255                                   FedEx       80   
+        5256               Bond Offshore Helicopters      NaN   
+        5257         Military - Indonesian Air Force      NaN   
+        5258                        Aviastar Mandiri      NaN   
+        5259                              Mimika Air      514   
+        5260                         Aerotuy airline      NaN   
+        5261                                Bako Air      NaN   
+        5262              Military - Venezuelan Army      NaN   
+        5263         Military - Indonesian Air Force      NaN   
+        5264                             Service Air      NaN   
+        5265                              Air France      447   
+        5266                              Strait Air      NaN   
+        5267             Military - Indian Air Force      NaN   
+        
+                                                          Route  \textbackslash{}
+        0                                         Demonstration   
+        1                                           Test flight   
+        2                                                   NaN   
+        3                                                   NaN   
+        4                                                   NaN   
+        5                                                   NaN   
+        6                                                   NaN   
+        7                                                   NaN   
+        8                                                   NaN   
+        9                                                   NaN   
+        10                                                  NaN   
+        11                                                  NaN   
+        12                                                  NaN   
+        13                                                  NaN   
+        14                                                  NaN   
+        15                                                  NaN   
+        16                                                  NaN   
+        17                                                  NaN   
+        18                                                  NaN   
+        19                                                  NaN   
+        20                                                  NaN   
+        21                                                  NaN   
+        22                                                  NaN   
+        23                                                  NaN   
+        24                                                  NaN   
+        25                                                  NaN   
+        26                                                  NaN   
+        27                                                  NaN   
+        28                                                  NaN   
+        29                                                  NaN   
+        {\ldots}                                                 {\ldots}   
+        5238                         al-Asad air base - Baghdad   
+        5239              Vancouver - Powell River - Toba Inlet   
+        5240                                           Training   
+        5241              Tortola Virgin Islands - San Juan, PR   
+        5242                         Sabine Pass - Oil Platform   
+        5243        Santiago, Dominican Republi- Providenciales   
+        5244              Bayou Penchant - Off shore oil fields   
+        5245                        New York, NY- Charlotte, NC   
+        5246                                      Coari - Manus   
+        5247                                     Rome - Bologna   
+        5248                         Newark, N.J. - Buffalo, NY   
+        5249                                                NaN   
+        5250  Entebbe, Uganda - Luxor, Egypt - Niklaev, Ukraine   
+        5251          Istanbul, Turkey - Amsterdam, Netherlands   
+        5252               Entebbe, Uganda - Mogadishu, Somalia   
+        5253                      St. Johns - Hibernia platform   
+        5254                           Oroville, CA - Butte, MT   
+        5255                    Guangzhou, China - Tokyo, Japan   
+        5256                            Miller field - Aberdeen   
+        5257                                 Militiary training   
+        5258                                  Jayapura - Wamena   
+        5259                                      Ilaga - Mulia   
+        5260                                 Canaima - Porlamar   
+        5261  Bangui, CAR- Brazzaville, Congo - Harare, Zimb{\ldots}   
+        5262                                             Patrol   
+        5263                                   Jakarta - Maduin   
+        5264                                       Goma - Isiro   
+        5265                             Rio de Janeiro - Paris   
+        5266          Lourdes de BlanSablon - Port Hope Simpson   
+        5267                                 Mechuka for Jorhat   
+        
+                                             Type Registration       cn/In  Aboard  \textbackslash{}
+        0                        Wright Flyer III          NaN           1     2.0   
+        1                               Dirigible          NaN         NaN     5.0   
+        2                        Curtiss seaplane          NaN         NaN     1.0   
+        3                  Zeppelin L-1 (airship)          NaN         NaN    20.0   
+        4                  Zeppelin L-2 (airship)          NaN         NaN    30.0   
+        5                  Zeppelin L-8 (airship)          NaN         NaN    41.0   
+        6                 Zeppelin L-10 (airship)          NaN         NaN    19.0   
+        7           Schutte-Lanz S-L-10 (airship)          NaN         NaN    20.0   
+        8                 Zeppelin L-32 (airship)          NaN         NaN    22.0   
+        9                 Zeppelin L-31 (airship)          NaN         NaN    19.0   
+        10               Super Zeppelin (airship)          NaN         NaN    28.0   
+        11                Zeppelin L-34 (airship)          NaN         NaN    20.0   
+        12                                Airship          NaN         NaN    20.0   
+        13           Schutte-Lanz S-L-9 (airship)          NaN         NaN    23.0   
+        14                Zeppelin L-22 (airship)          NaN         NaN    21.0   
+        15                Zeppelin L-43 (airship)          NaN         NaN    24.0   
+        16                Zeppelin L-23 (airship)          NaN         NaN    18.0   
+        17                Zeppelin L-44 (airship)          NaN         NaN    18.0   
+        18                Zeppelin L-59 (airship)          NaN         NaN    23.0   
+        19                Zeppelin L-70 (airship)          NaN         NaN    22.0   
+        20                Zeppelin L-53 (airship)          NaN         NaN    19.0   
+        21                      De Havilland DH-4           97         NaN     1.0   
+        22                      De Havilland DH-4           61         NaN     1.0   
+        23                      De Havilland DH-4           82         NaN     1.0   
+        24                      De Havilland DH-4          NaN         NaN     1.0   
+        25                          Curtiss R-4LM           32         NaN     1.0   
+        26                      De Havilland DH-4       G-EAHG         NaN     NaN   
+        27                      De Havilland DH.4           77         NaN     1.0   
+        28                      De Havilland DH-4           65         NaN     1.0   
+        29                      De Havilland DH-4           72         NaN     1.0   
+        {\ldots}                                   {\ldots}          {\ldots}         {\ldots}     {\ldots}   
+        5238                        Antonov An-12       S9-SAO      346908     7.0   
+        5239                  Grumman G-21A Goose       C-FPCK        1187     8.0   
+        5240                      Airbus A320-232       D-AXLA        2500     7.0   
+        5241          Rockwell International 690B      N318WA        11444     3.0   
+        5242           Bell 206-L4 Jet Ranger III       N180AL       52104     3.0   
+        5243  Britten Norman BN-2A Trislander Mk3       N650LP        1029    12.0   
+        5244                       Sikorsky S-76C        N748P      760629     9.0   
+        5245                      Airbus A320-214       N106US        1044   155.0   
+        5246                Bandeirante EMB-110P1       PT-SEA      110352    28.0   
+        5247              Cessna 650 Citation III       I-FEEV    650-0105     2.0   
+        5248            Bombardier DHC-8-402 Q400       N200WQ        4200    49.0   
+        5249                           Bell UH-1H          NaN         NaN    13.0   
+        5250                          Antonov 12V       S9-SVN     6344310     5.0   
+        5251                       Boeing 737-8F2       TC-JGE  29789/1065   134.0   
+        5252                      Ilyushin Il-76T       S9-SAB   073410301    11.0   
+        5253                       Sikorsky S-92A       C-GZCH      920048    18.0   
+        5254                     Pilatus PC-12/45       N128CM         403    14.0   
+        5255              McDonnell Douglas MD-11       N526FE   48600/560     2.0   
+        5256     Eurocopter AS 332L2 Super Puma 2          NaN         NaN    16.0   
+        5257          Fokker F-27 Friendship 400M       A-2703       10538    24.0   
+        5258        British Aerospace BAe-146-300       PK-BRD       E3189     6.0   
+        5259                         Pilatus PC-6       PK-LTJ         959    11.0   
+        5260            Cessna 208B Grand Caravan      YV-1181   208B-0695    11.0   
+        5261                     Boeing B-737-200      TL-ADM    22264/753     7.0   
+        5262                                Mi-35     EV08114          NaN    18.0   
+        5263              Lockheed C-130 Hercules       A-1325        1982   112.0   
+        5264                        Antonov An-26       9Q-CSA        5005     4.0   
+        5265                      Airbus A330-203       F-GZCP         660   228.0   
+        5266     Britten-Norman BN-2A-27 Islander      C-FJJR          424     1.0   
+        5267                        Antonov An-32          NaN         NaN    13.0   
+        
+              Fatalities  Ground                                            Summary  
+        0            1.0     0.0  During a demonstration flight, a U.S. Army fly{\ldots}  
+        1            5.0     0.0  First U.S. dirigible Akron exploded just offsh{\ldots}  
+        2            1.0     0.0  The first fatal airplane accident in Canada oc{\ldots}  
+        3           14.0     0.0  The airship flew into a thunderstorm and encou{\ldots}  
+        4           30.0     0.0  Hydrogen gas which was being vented was sucked{\ldots}  
+        5           21.0     0.0  Crashed into trees while attempting to land af{\ldots}  
+        6           19.0     0.0  Exploded and burned near Neuwerk Island,  when{\ldots}  
+        7           20.0     0.0         Crashed near the Black Sea, cause unknown.  
+        8           22.0     0.0  Shot down by British aircraft crashing in flames.  
+        9           19.0     0.0  Shot down in flames by the British 39th Home D{\ldots}  
+        10          27.0     0.0                                Crashed in a storm.  
+        11          20.0     0.0  Shot down by British anti-aircraft fire and ai{\ldots}  
+        12          20.0     0.0                           Caught fire and crashed.  
+        13          23.0     0.0  Struck by lightning and crashed into the Balti{\ldots}  
+        14          21.0     0.0  Crashed into the sea from an altitude of 3,000{\ldots}  
+        15          24.0     0.0                     Shot down by British aircraft.  
+        16          18.0     0.0                     Shot down by British aircraft.  
+        17          18.0     0.0            Shot down by French anti-aircraft fire.  
+        18          23.0     0.0  Exploded and crashed into the sea off the sout{\ldots}  
+        19          22.0     0.0  Shot down by British aircraft crashing from a {\ldots}  
+        20          19.0     0.0                     Shot down by british aircraft.  
+        21           1.0     0.0                                                NaN  
+        22           1.0     0.0  Caught fire in midair. The pilot leaped from t{\ldots}  
+        23           1.0     0.0                                                NaN  
+        24           1.0     0.0                                                NaN  
+        25           1.0     0.0                                                NaN  
+        26           NaN     NaN                                                NaN  
+        27           1.0     0.0                                                NaN  
+        28           1.0     0.0                                                NaN  
+        29           1.0     0.0                                                NaN  
+        {\ldots}          {\ldots}     {\ldots}                                                {\ldots}  
+        5238         7.0     0.0  The cargo plane, chartered by FedEx, crashed w{\ldots}  
+        5239         7.0     0.0  The charter aircraft crashed into a steep hill{\ldots}  
+        5240         7.0     0.0  The Airbus A320 was leased by XL Airways of Ge{\ldots}  
+        5241         3.0     0.0  The plane struck the side of El Yunque mountai{\ldots}  
+        5242         3.0     0.0  The helicopter ferrying workers to an off shor{\ldots}  
+        5243        12.0     0.0  The charter flight disappeared from radar 35 m{\ldots}  
+        5244         8.0     0.0  A helicopter bound for offshore oil fields wen{\ldots}  
+        5245         0.0     0.0  The plane was taking off from La Guardia Airpo{\ldots}  
+        5246        24.0     0.0  The plane was being used as an air taxi to fer{\ldots}  
+        5247         2.0     0.0  The plane, heading to Bologna to pick up a med{\ldots}  
+        5248        49.0     1.0  The commuter plane crashed while attemptiong t{\ldots}  
+        5249        13.0     0.0  The helicopter was carrying firemen to a nearb{\ldots}  
+        5250         5.0     0.0  While attemping to take off from Luxor, the ca{\ldots}  
+        5251         9.0     0.0  The plane was on final approach to Runway 18R {\ldots}  
+        5252        11.0     0.0  The cargo plane carrying and water purificatio{\ldots}  
+        5253        17.0     0.0  The pilot reported a technical malfunction and{\ldots}  
+        5254        14.0     0.0  The plane crashed 500 feet short of the runway{\ldots}  
+        5255         2.0     0.0  The cargo plane crashed and burst into flame a{\ldots}  
+        5256        16.0     0.0  The helicopter crashed 35 miles East of Crimon{\ldots}  
+        5257        24.0     0.0  While returning from a military training exerc{\ldots}  
+        5258         6.0     0.0  The cargo plane crashed into Gunung Pike mount{\ldots}  
+        5259        11.0     0.0  The passenger plane crashed in poor weather in{\ldots}  
+        5260         1.0     0.0  The plane, carrying 9 tourists, crashed 5 mile{\ldots}  
+        5261         7.0     0.0  Crashed while en route on a ferrying flight. T{\ldots}  
+        5262        18.0     0.0  The helicopter was patrolling along the Venezu{\ldots}  
+        5263        98.0     2.0  While on approach, the military transport cras{\ldots}  
+        5264         4.0     NaN  The cargo plane crashed while on approach to I{\ldots}  
+        5265       228.0     0.0  The Airbus went missing over the AtlantiOcean {\ldots}  
+        5266         1.0     0.0  The air ambulance crashed into hills while att{\ldots}  
+        5267        13.0     0.0  The military transport went missing while en r{\ldots}  
+        
+        [5241 rows x 13 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.5/dist-packages/ipykernel\_launcher.py:1: FutureWarning: pandas.scatter\_matrix is deprecated. Use pandas.plotting.scatter\_matrix instead
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35455320>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e353bfc88>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35366c18>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e3537aa20>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35331c18>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e3534f7b8>],
+               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352dd3c8>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352986d8>,
+                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352bb978>]],
+              dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aboard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f8cb6e98470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
