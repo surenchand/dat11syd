@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{Homework Week 2}
+    \title{Homework Week 7}
     
     
     
@@ -281,735 +281,665 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Import the libraries required}
-        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
-        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-        
-        \PY{c+c1}{\PYZsh{} this allows plots to appear directly in the notebook}
-        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+{\color{incolor}In [{\color{incolor}105}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{c+c1}{\PYZsh{} allow plots to appear in the notebook}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZti{}/workspace/dat11syd/students/surenchand/data/Airplane\PYZus{}Crashes\PYZus{}and\PYZus{}Fatalities\PYZus{}Since\PYZus{}1908.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{}Import the data}
+          \PY{n}{weather\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZti{}/workspace/dat11syd/students/surenchand/lesson\PYZhy{}07/hwk/seattleWeather\PYZus{}1948\PYZhy{}2017.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{head}
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:} <bound method NDFrame.head of             Date   Time                                           Location  \textbackslash{}
-        0     09/17/1908  17:18                                Fort Myer, Virginia   
-        1     07/12/1912  06:30                            AtlantiCity, New Jersey   
-        2     08/06/1913    NaN                 Victoria, British Columbia, Canada   
-        3     09/09/1913  18:30                                 Over the North Sea   
-        4     10/17/1913  10:30                         Near Johannisthal, Germany   
-        5     03/05/1915  01:00                                    Tienen, Belgium   
-        6     09/03/1915  15:20                              Off Cuxhaven, Germany   
-        7     07/28/1916    NaN                              Near Jambol, Bulgeria   
-        8     09/24/1916  01:00                                Billericay, England   
-        9     10/01/1916  23:45                               Potters Bar, England   
-        10    11/21/1916    NaN                                     Mainz, Germany   
-        11    11/28/1916  23:45                       Off West Hartlepool, England   
-        12    03/04/1917    NaN                                 Near Gent, Belgium   
-        13    03/30/1917    NaN                               Off Northern Germany   
-        14    05/14/1917  05:15                       Near Texel Island, North Sea   
-        15    06/14/1917  08:45                     Off Vlieland Island, North Sea   
-        16    08/21/1917  07:00                                Off western Denmark   
-        17    10/20/1917  07:45                             Near Luneville, France   
-        18    04/07/1918  21:30                             Over the Mediterranean   
-        19    05/10/1918    NaN                      Off Helgoland Island, Germany   
-        20    08/11/1918  10:00                          Ameland Island, North Sea   
-        21    12/16/1918    NaN                              Elizabeth, New Jersey   
-        22    05/25/1919    NaN                                    Cleveland, Ohio   
-        23    07/19/1919    NaN                              Dix Run, Pennsylvania   
-        24    10/02/1919    NaN                                 Newcastle, England   
-        25    10/14/1919    NaN                             Cantonsville, Maryland   
-        26    10/20/1919    NaN                                    English Channel   
-        27    10/30/1919    NaN                            Long Valley, New Jersey   
-        28    03/10/1920    NaN                                 New Paris, Indiana   
-        29    03/30/1920    NaN                                 Newark, New Jersey   
-        {\ldots}          {\ldots}    {\ldots}                                                {\ldots}   
-        5238  11/13/2008  11:35                                     Fallujah, Iraq   
-        5239  11/16/2008  10:32         Thormanby Island, British Columbia, Canada   
-        5240  11/27/2008  17:00                              Off Perpignan, France   
-        5241  12/03/2008  12:13                              San Juan, Puerto Rico   
-        5242  12/11/2008  06:25                             Off Sabine Pass, Texas   
-        5243  12/15/2008  16:40                       Off Turks and Caicos Islands   
-        5244  01/04/2009  15:30                               Near Houma Louisiana   
-        5245  01/15/2009  15:06                                 New York, New York   
-        5246  02/07/2009  14:00                                 Manacapuru, Brazil   
-        5247  02/07/2009  06:30                                    Trigoria, Italy   
-        5248  02/12/2009  22:17                          Clarence Center, New York   
-        5249  02/15/2009  16:05                                      Chanco, Chile   
-        5250  02/20/2009  04:10                                       Luxor, Egypt   
-        5251  02/25/2009  10:31                             Amsterdam, Netherlands   
-        5252  03/09/2009  05:40                              Lake Victoria, Uganda   
-        5253  03/12/2009  09:48                        Off St. Johns, Newfoundland   
-        5254  03/22/2009  14:28                                     Butte, Montana   
-        5255  03/23/2009  06:48                                       Tokyo, Japan   
-        5256  04/01/2009  14:00                              Off Crimond, Scotland   
-        5257  04/06/2009  12:30                                 Bandung, Indonesia   
-        5258  04/09/2009  07:00                             Near Wamena, Indonesia   
-        5259  04/17/2009  10:30                           Mount Gergaji, Indonesia   
-        5260  04/17/2009  15:32                   Canaima National Park, Venezuela   
-        5261  04/29/2009  06:00                 Massamba, DemocratiRepubliof Congo   
-        5262  05/03/2009  12:00                   Near El Alto de Rubio, Venezuela   
-        5263  05/20/2009  06:30                             Near Madiun, Indonesia   
-        5264  05/26/2009    NaN                  Near Isiro, DemocratiRepubliCongo   
-        5265  06/01/2009  00:15  AtlantiOcean, 570 miles northeast of Natal, Br{\ldots}   
-        5266  06/07/2009  08:30       Near Port Hope Simpson, Newfoundland, Canada   
-        5267  06/08/2009    NaN                  State of Arunachal Pradesh, India   
-        
-                                            Operator Flight \#  \textbackslash{}
-        0                       Military - U.S. Army      NaN   
-        1                       Military - U.S. Navy      NaN   
-        2                                    Private        -   
-        3                     Military - German Navy      NaN   
-        4                     Military - German Navy      NaN   
-        5                     Military - German Navy      NaN   
-        6                     Military - German Navy      NaN   
-        7                     Military - German Army      NaN   
-        8                     Military - German Navy      NaN   
-        9                     Military - German Navy      NaN   
-        10                    Military - German Army      NaN   
-        11                    Military - German Navy      NaN   
-        12                    Military - German Army      NaN   
-        13                    Military - German Navy      NaN   
-        14                    Military - German Navy      NaN   
-        15                    Military - German Navy      NaN   
-        16                    Military - German Navy      NaN   
-        17                    Military - German Navy      NaN   
-        18                    Military - German Navy      NaN   
-        19                    Military - German Navy      NaN   
-        20                    Military - German Navy      NaN   
-        21                    US Aerial Mail Service      NaN   
-        22                    US Aerial Mail Service      NaN   
-        23                    US Aerial Mail Service      NaN   
-        24             Aircraft Transport and Travel      NaN   
-        25                    US Aerial Mail Service      NaN   
-        26             Aircraft Transport and Travel      NaN   
-        27                    US Aerial Mail Service      NaN   
-        28                    US Aerial Mail Service      NaN   
-        29                    US Aerial Mail Service      NaN   
-        {\ldots}                                      {\ldots}      {\ldots}   
-        5238                   Falcon Aviation Group      NaN   
-        5239                  PacifiCoastal Airlines      NaN   
-        5240  XL Airways leased from Air New Zealand      NaN   
-        5241          Webstas Aviation Services Inc.      NaN   
-        5242                   Rotorcraft Leasing Co      NaN   
-        5243                        Alantis Aviation      NaN   
-        5244               Petroleum Helicopters Inc      NaN   
-        5245                              US Airways     1549   
-        5246                         Aerotaxi Manaus      NaN   
-        5247                       Air One Executive      NaN   
-        5248       Continental Connection/Colgan Air     3407   
-        5249                          Flight Service      NaN   
-        5250                                Aerolift      NaN   
-        5251                        Turkish Airlines     1951   
-        5252                                Aerolift      NaN   
-        5253                      Cougar Helicopters      NaN   
-        5254                       Eagle Cap Leasing      NaN   
-        5255                                   FedEx       80   
-        5256               Bond Offshore Helicopters      NaN   
-        5257         Military - Indonesian Air Force      NaN   
-        5258                        Aviastar Mandiri      NaN   
-        5259                              Mimika Air      514   
-        5260                         Aerotuy airline      NaN   
-        5261                                Bako Air      NaN   
-        5262              Military - Venezuelan Army      NaN   
-        5263         Military - Indonesian Air Force      NaN   
-        5264                             Service Air      NaN   
-        5265                              Air France      447   
-        5266                              Strait Air      NaN   
-        5267             Military - Indian Air Force      NaN   
-        
-                                                          Route  \textbackslash{}
-        0                                         Demonstration   
-        1                                           Test flight   
-        2                                                   NaN   
-        3                                                   NaN   
-        4                                                   NaN   
-        5                                                   NaN   
-        6                                                   NaN   
-        7                                                   NaN   
-        8                                                   NaN   
-        9                                                   NaN   
-        10                                                  NaN   
-        11                                                  NaN   
-        12                                                  NaN   
-        13                                                  NaN   
-        14                                                  NaN   
-        15                                                  NaN   
-        16                                                  NaN   
-        17                                                  NaN   
-        18                                                  NaN   
-        19                                                  NaN   
-        20                                                  NaN   
-        21                                                  NaN   
-        22                                                  NaN   
-        23                                                  NaN   
-        24                                                  NaN   
-        25                                                  NaN   
-        26                                                  NaN   
-        27                                                  NaN   
-        28                                                  NaN   
-        29                                                  NaN   
-        {\ldots}                                                 {\ldots}   
-        5238                         al-Asad air base - Baghdad   
-        5239              Vancouver - Powell River - Toba Inlet   
-        5240                                           Training   
-        5241              Tortola Virgin Islands - San Juan, PR   
-        5242                         Sabine Pass - Oil Platform   
-        5243        Santiago, Dominican Republi- Providenciales   
-        5244              Bayou Penchant - Off shore oil fields   
-        5245                        New York, NY- Charlotte, NC   
-        5246                                      Coari - Manus   
-        5247                                     Rome - Bologna   
-        5248                         Newark, N.J. - Buffalo, NY   
-        5249                                                NaN   
-        5250  Entebbe, Uganda - Luxor, Egypt - Niklaev, Ukraine   
-        5251          Istanbul, Turkey - Amsterdam, Netherlands   
-        5252               Entebbe, Uganda - Mogadishu, Somalia   
-        5253                      St. Johns - Hibernia platform   
-        5254                           Oroville, CA - Butte, MT   
-        5255                    Guangzhou, China - Tokyo, Japan   
-        5256                            Miller field - Aberdeen   
-        5257                                 Militiary training   
-        5258                                  Jayapura - Wamena   
-        5259                                      Ilaga - Mulia   
-        5260                                 Canaima - Porlamar   
-        5261  Bangui, CAR- Brazzaville, Congo - Harare, Zimb{\ldots}   
-        5262                                             Patrol   
-        5263                                   Jakarta - Maduin   
-        5264                                       Goma - Isiro   
-        5265                             Rio de Janeiro - Paris   
-        5266          Lourdes de BlanSablon - Port Hope Simpson   
-        5267                                 Mechuka for Jorhat   
-        
-                                             Type Registration       cn/In  Aboard  \textbackslash{}
-        0                        Wright Flyer III          NaN           1     2.0   
-        1                               Dirigible          NaN         NaN     5.0   
-        2                        Curtiss seaplane          NaN         NaN     1.0   
-        3                  Zeppelin L-1 (airship)          NaN         NaN    20.0   
-        4                  Zeppelin L-2 (airship)          NaN         NaN    30.0   
-        5                  Zeppelin L-8 (airship)          NaN         NaN    41.0   
-        6                 Zeppelin L-10 (airship)          NaN         NaN    19.0   
-        7           Schutte-Lanz S-L-10 (airship)          NaN         NaN    20.0   
-        8                 Zeppelin L-32 (airship)          NaN         NaN    22.0   
-        9                 Zeppelin L-31 (airship)          NaN         NaN    19.0   
-        10               Super Zeppelin (airship)          NaN         NaN    28.0   
-        11                Zeppelin L-34 (airship)          NaN         NaN    20.0   
-        12                                Airship          NaN         NaN    20.0   
-        13           Schutte-Lanz S-L-9 (airship)          NaN         NaN    23.0   
-        14                Zeppelin L-22 (airship)          NaN         NaN    21.0   
-        15                Zeppelin L-43 (airship)          NaN         NaN    24.0   
-        16                Zeppelin L-23 (airship)          NaN         NaN    18.0   
-        17                Zeppelin L-44 (airship)          NaN         NaN    18.0   
-        18                Zeppelin L-59 (airship)          NaN         NaN    23.0   
-        19                Zeppelin L-70 (airship)          NaN         NaN    22.0   
-        20                Zeppelin L-53 (airship)          NaN         NaN    19.0   
-        21                      De Havilland DH-4           97         NaN     1.0   
-        22                      De Havilland DH-4           61         NaN     1.0   
-        23                      De Havilland DH-4           82         NaN     1.0   
-        24                      De Havilland DH-4          NaN         NaN     1.0   
-        25                          Curtiss R-4LM           32         NaN     1.0   
-        26                      De Havilland DH-4       G-EAHG         NaN     NaN   
-        27                      De Havilland DH.4           77         NaN     1.0   
-        28                      De Havilland DH-4           65         NaN     1.0   
-        29                      De Havilland DH-4           72         NaN     1.0   
-        {\ldots}                                   {\ldots}          {\ldots}         {\ldots}     {\ldots}   
-        5238                        Antonov An-12       S9-SAO      346908     7.0   
-        5239                  Grumman G-21A Goose       C-FPCK        1187     8.0   
-        5240                      Airbus A320-232       D-AXLA        2500     7.0   
-        5241          Rockwell International 690B      N318WA        11444     3.0   
-        5242           Bell 206-L4 Jet Ranger III       N180AL       52104     3.0   
-        5243  Britten Norman BN-2A Trislander Mk3       N650LP        1029    12.0   
-        5244                       Sikorsky S-76C        N748P      760629     9.0   
-        5245                      Airbus A320-214       N106US        1044   155.0   
-        5246                Bandeirante EMB-110P1       PT-SEA      110352    28.0   
-        5247              Cessna 650 Citation III       I-FEEV    650-0105     2.0   
-        5248            Bombardier DHC-8-402 Q400       N200WQ        4200    49.0   
-        5249                           Bell UH-1H          NaN         NaN    13.0   
-        5250                          Antonov 12V       S9-SVN     6344310     5.0   
-        5251                       Boeing 737-8F2       TC-JGE  29789/1065   134.0   
-        5252                      Ilyushin Il-76T       S9-SAB   073410301    11.0   
-        5253                       Sikorsky S-92A       C-GZCH      920048    18.0   
-        5254                     Pilatus PC-12/45       N128CM         403    14.0   
-        5255              McDonnell Douglas MD-11       N526FE   48600/560     2.0   
-        5256     Eurocopter AS 332L2 Super Puma 2          NaN         NaN    16.0   
-        5257          Fokker F-27 Friendship 400M       A-2703       10538    24.0   
-        5258        British Aerospace BAe-146-300       PK-BRD       E3189     6.0   
-        5259                         Pilatus PC-6       PK-LTJ         959    11.0   
-        5260            Cessna 208B Grand Caravan      YV-1181   208B-0695    11.0   
-        5261                     Boeing B-737-200      TL-ADM    22264/753     7.0   
-        5262                                Mi-35     EV08114          NaN    18.0   
-        5263              Lockheed C-130 Hercules       A-1325        1982   112.0   
-        5264                        Antonov An-26       9Q-CSA        5005     4.0   
-        5265                      Airbus A330-203       F-GZCP         660   228.0   
-        5266     Britten-Norman BN-2A-27 Islander      C-FJJR          424     1.0   
-        5267                        Antonov An-32          NaN         NaN    13.0   
-        
-              Fatalities  Ground                                            Summary  
-        0            1.0     0.0  During a demonstration flight, a U.S. Army fly{\ldots}  
-        1            5.0     0.0  First U.S. dirigible Akron exploded just offsh{\ldots}  
-        2            1.0     0.0  The first fatal airplane accident in Canada oc{\ldots}  
-        3           14.0     0.0  The airship flew into a thunderstorm and encou{\ldots}  
-        4           30.0     0.0  Hydrogen gas which was being vented was sucked{\ldots}  
-        5           21.0     0.0  Crashed into trees while attempting to land af{\ldots}  
-        6           19.0     0.0  Exploded and burned near Neuwerk Island,  when{\ldots}  
-        7           20.0     0.0         Crashed near the Black Sea, cause unknown.  
-        8           22.0     0.0  Shot down by British aircraft crashing in flames.  
-        9           19.0     0.0  Shot down in flames by the British 39th Home D{\ldots}  
-        10          27.0     0.0                                Crashed in a storm.  
-        11          20.0     0.0  Shot down by British anti-aircraft fire and ai{\ldots}  
-        12          20.0     0.0                           Caught fire and crashed.  
-        13          23.0     0.0  Struck by lightning and crashed into the Balti{\ldots}  
-        14          21.0     0.0  Crashed into the sea from an altitude of 3,000{\ldots}  
-        15          24.0     0.0                     Shot down by British aircraft.  
-        16          18.0     0.0                     Shot down by British aircraft.  
-        17          18.0     0.0            Shot down by French anti-aircraft fire.  
-        18          23.0     0.0  Exploded and crashed into the sea off the sout{\ldots}  
-        19          22.0     0.0  Shot down by British aircraft crashing from a {\ldots}  
-        20          19.0     0.0                     Shot down by british aircraft.  
-        21           1.0     0.0                                                NaN  
-        22           1.0     0.0  Caught fire in midair. The pilot leaped from t{\ldots}  
-        23           1.0     0.0                                                NaN  
-        24           1.0     0.0                                                NaN  
-        25           1.0     0.0                                                NaN  
-        26           NaN     NaN                                                NaN  
-        27           1.0     0.0                                                NaN  
-        28           1.0     0.0                                                NaN  
-        29           1.0     0.0                                                NaN  
-        {\ldots}          {\ldots}     {\ldots}                                                {\ldots}  
-        5238         7.0     0.0  The cargo plane, chartered by FedEx, crashed w{\ldots}  
-        5239         7.0     0.0  The charter aircraft crashed into a steep hill{\ldots}  
-        5240         7.0     0.0  The Airbus A320 was leased by XL Airways of Ge{\ldots}  
-        5241         3.0     0.0  The plane struck the side of El Yunque mountai{\ldots}  
-        5242         3.0     0.0  The helicopter ferrying workers to an off shor{\ldots}  
-        5243        12.0     0.0  The charter flight disappeared from radar 35 m{\ldots}  
-        5244         8.0     0.0  A helicopter bound for offshore oil fields wen{\ldots}  
-        5245         0.0     0.0  The plane was taking off from La Guardia Airpo{\ldots}  
-        5246        24.0     0.0  The plane was being used as an air taxi to fer{\ldots}  
-        5247         2.0     0.0  The plane, heading to Bologna to pick up a med{\ldots}  
-        5248        49.0     1.0  The commuter plane crashed while attemptiong t{\ldots}  
-        5249        13.0     0.0  The helicopter was carrying firemen to a nearb{\ldots}  
-        5250         5.0     0.0  While attemping to take off from Luxor, the ca{\ldots}  
-        5251         9.0     0.0  The plane was on final approach to Runway 18R {\ldots}  
-        5252        11.0     0.0  The cargo plane carrying and water purificatio{\ldots}  
-        5253        17.0     0.0  The pilot reported a technical malfunction and{\ldots}  
-        5254        14.0     0.0  The plane crashed 500 feet short of the runway{\ldots}  
-        5255         2.0     0.0  The cargo plane crashed and burst into flame a{\ldots}  
-        5256        16.0     0.0  The helicopter crashed 35 miles East of Crimon{\ldots}  
-        5257        24.0     0.0  While returning from a military training exerc{\ldots}  
-        5258         6.0     0.0  The cargo plane crashed into Gunung Pike mount{\ldots}  
-        5259        11.0     0.0  The passenger plane crashed in poor weather in{\ldots}  
-        5260         1.0     0.0  The plane, carrying 9 tourists, crashed 5 mile{\ldots}  
-        5261         7.0     0.0  Crashed while en route on a ferrying flight. T{\ldots}  
-        5262        18.0     0.0  The helicopter was patrolling along the Venezu{\ldots}  
-        5263        98.0     2.0  While on approach, the military transport cras{\ldots}  
-        5264         4.0     NaN  The cargo plane crashed while on approach to I{\ldots}  
-        5265       228.0     0.0  The Airbus went missing over the AtlantiOcean {\ldots}  
-        5266         1.0     0.0  The air ambulance crashed into hills while att{\ldots}  
-        5267        13.0     0.0  The military transport went missing while en r{\ldots}  
-        
-        [5268 rows x 13 columns]>
+{\color{outcolor}Out[{\color{outcolor}107}]:}          DATE  PRCP  TMAX  TMIN  RAIN
+          0  1948-01-01  0.47    51    42  True
+          1  1948-01-02  0.59    45    36  True
+          2  1948-01-03  0.42    45    35  True
+          3  1948-01-04  0.31    45    34  True
+          4  1948-01-05  0.17    45    32  True
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:} Date               0
-        Time            2219
-        Location          20
-        Operator          18
-        Flight \#        4199
-        Route           1706
-        Type              27
-        Registration     335
-        cn/In           1228
-        Aboard            22
-        Fatalities        12
-        Ground            22
-        Summary          390
-        dtype: int64
+{\color{outcolor}Out[{\color{outcolor}108}]:} array(['DATE', 'PRCP', 'TMAX', 'TMIN', 'RAIN'], dtype=object)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Operator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{describe}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:}             Date   Time                                           Location  \textbackslash{}
-        0     09/17/1908  17:18                                Fort Myer, Virginia   
-        1     07/12/1912  06:30                            AtlantiCity, New Jersey   
-        2     08/06/1913    NaN                 Victoria, British Columbia, Canada   
-        3     09/09/1913  18:30                                 Over the North Sea   
-        4     10/17/1913  10:30                         Near Johannisthal, Germany   
-        5     03/05/1915  01:00                                    Tienen, Belgium   
-        6     09/03/1915  15:20                              Off Cuxhaven, Germany   
-        7     07/28/1916    NaN                              Near Jambol, Bulgeria   
-        8     09/24/1916  01:00                                Billericay, England   
-        9     10/01/1916  23:45                               Potters Bar, England   
-        10    11/21/1916    NaN                                     Mainz, Germany   
-        11    11/28/1916  23:45                       Off West Hartlepool, England   
-        12    03/04/1917    NaN                                 Near Gent, Belgium   
-        13    03/30/1917    NaN                               Off Northern Germany   
-        14    05/14/1917  05:15                       Near Texel Island, North Sea   
-        15    06/14/1917  08:45                     Off Vlieland Island, North Sea   
-        16    08/21/1917  07:00                                Off western Denmark   
-        17    10/20/1917  07:45                             Near Luneville, France   
-        18    04/07/1918  21:30                             Over the Mediterranean   
-        19    05/10/1918    NaN                      Off Helgoland Island, Germany   
-        20    08/11/1918  10:00                          Ameland Island, North Sea   
-        21    12/16/1918    NaN                              Elizabeth, New Jersey   
-        22    05/25/1919    NaN                                    Cleveland, Ohio   
-        23    07/19/1919    NaN                              Dix Run, Pennsylvania   
-        24    10/02/1919    NaN                                 Newcastle, England   
-        25    10/14/1919    NaN                             Cantonsville, Maryland   
-        26    10/20/1919    NaN                                    English Channel   
-        27    10/30/1919    NaN                            Long Valley, New Jersey   
-        28    03/10/1920    NaN                                 New Paris, Indiana   
-        29    03/30/1920    NaN                                 Newark, New Jersey   
-        {\ldots}          {\ldots}    {\ldots}                                                {\ldots}   
-        5238  11/13/2008  11:35                                     Fallujah, Iraq   
-        5239  11/16/2008  10:32         Thormanby Island, British Columbia, Canada   
-        5240  11/27/2008  17:00                              Off Perpignan, France   
-        5241  12/03/2008  12:13                              San Juan, Puerto Rico   
-        5242  12/11/2008  06:25                             Off Sabine Pass, Texas   
-        5243  12/15/2008  16:40                       Off Turks and Caicos Islands   
-        5244  01/04/2009  15:30                               Near Houma Louisiana   
-        5245  01/15/2009  15:06                                 New York, New York   
-        5246  02/07/2009  14:00                                 Manacapuru, Brazil   
-        5247  02/07/2009  06:30                                    Trigoria, Italy   
-        5248  02/12/2009  22:17                          Clarence Center, New York   
-        5249  02/15/2009  16:05                                      Chanco, Chile   
-        5250  02/20/2009  04:10                                       Luxor, Egypt   
-        5251  02/25/2009  10:31                             Amsterdam, Netherlands   
-        5252  03/09/2009  05:40                              Lake Victoria, Uganda   
-        5253  03/12/2009  09:48                        Off St. Johns, Newfoundland   
-        5254  03/22/2009  14:28                                     Butte, Montana   
-        5255  03/23/2009  06:48                                       Tokyo, Japan   
-        5256  04/01/2009  14:00                              Off Crimond, Scotland   
-        5257  04/06/2009  12:30                                 Bandung, Indonesia   
-        5258  04/09/2009  07:00                             Near Wamena, Indonesia   
-        5259  04/17/2009  10:30                           Mount Gergaji, Indonesia   
-        5260  04/17/2009  15:32                   Canaima National Park, Venezuela   
-        5261  04/29/2009  06:00                 Massamba, DemocratiRepubliof Congo   
-        5262  05/03/2009  12:00                   Near El Alto de Rubio, Venezuela   
-        5263  05/20/2009  06:30                             Near Madiun, Indonesia   
-        5264  05/26/2009    NaN                  Near Isiro, DemocratiRepubliCongo   
-        5265  06/01/2009  00:15  AtlantiOcean, 570 miles northeast of Natal, Br{\ldots}   
-        5266  06/07/2009  08:30       Near Port Hope Simpson, Newfoundland, Canada   
-        5267  06/08/2009    NaN                  State of Arunachal Pradesh, India   
-        
-                                            Operator Flight \#  \textbackslash{}
-        0                       Military - U.S. Army      NaN   
-        1                       Military - U.S. Navy      NaN   
-        2                                    Private        -   
-        3                     Military - German Navy      NaN   
-        4                     Military - German Navy      NaN   
-        5                     Military - German Navy      NaN   
-        6                     Military - German Navy      NaN   
-        7                     Military - German Army      NaN   
-        8                     Military - German Navy      NaN   
-        9                     Military - German Navy      NaN   
-        10                    Military - German Army      NaN   
-        11                    Military - German Navy      NaN   
-        12                    Military - German Army      NaN   
-        13                    Military - German Navy      NaN   
-        14                    Military - German Navy      NaN   
-        15                    Military - German Navy      NaN   
-        16                    Military - German Navy      NaN   
-        17                    Military - German Navy      NaN   
-        18                    Military - German Navy      NaN   
-        19                    Military - German Navy      NaN   
-        20                    Military - German Navy      NaN   
-        21                    US Aerial Mail Service      NaN   
-        22                    US Aerial Mail Service      NaN   
-        23                    US Aerial Mail Service      NaN   
-        24             Aircraft Transport and Travel      NaN   
-        25                    US Aerial Mail Service      NaN   
-        26             Aircraft Transport and Travel      NaN   
-        27                    US Aerial Mail Service      NaN   
-        28                    US Aerial Mail Service      NaN   
-        29                    US Aerial Mail Service      NaN   
-        {\ldots}                                      {\ldots}      {\ldots}   
-        5238                   Falcon Aviation Group      NaN   
-        5239                  PacifiCoastal Airlines      NaN   
-        5240  XL Airways leased from Air New Zealand      NaN   
-        5241          Webstas Aviation Services Inc.      NaN   
-        5242                   Rotorcraft Leasing Co      NaN   
-        5243                        Alantis Aviation      NaN   
-        5244               Petroleum Helicopters Inc      NaN   
-        5245                              US Airways     1549   
-        5246                         Aerotaxi Manaus      NaN   
-        5247                       Air One Executive      NaN   
-        5248       Continental Connection/Colgan Air     3407   
-        5249                          Flight Service      NaN   
-        5250                                Aerolift      NaN   
-        5251                        Turkish Airlines     1951   
-        5252                                Aerolift      NaN   
-        5253                      Cougar Helicopters      NaN   
-        5254                       Eagle Cap Leasing      NaN   
-        5255                                   FedEx       80   
-        5256               Bond Offshore Helicopters      NaN   
-        5257         Military - Indonesian Air Force      NaN   
-        5258                        Aviastar Mandiri      NaN   
-        5259                              Mimika Air      514   
-        5260                         Aerotuy airline      NaN   
-        5261                                Bako Air      NaN   
-        5262              Military - Venezuelan Army      NaN   
-        5263         Military - Indonesian Air Force      NaN   
-        5264                             Service Air      NaN   
-        5265                              Air France      447   
-        5266                              Strait Air      NaN   
-        5267             Military - Indian Air Force      NaN   
-        
-                                                          Route  \textbackslash{}
-        0                                         Demonstration   
-        1                                           Test flight   
-        2                                                   NaN   
-        3                                                   NaN   
-        4                                                   NaN   
-        5                                                   NaN   
-        6                                                   NaN   
-        7                                                   NaN   
-        8                                                   NaN   
-        9                                                   NaN   
-        10                                                  NaN   
-        11                                                  NaN   
-        12                                                  NaN   
-        13                                                  NaN   
-        14                                                  NaN   
-        15                                                  NaN   
-        16                                                  NaN   
-        17                                                  NaN   
-        18                                                  NaN   
-        19                                                  NaN   
-        20                                                  NaN   
-        21                                                  NaN   
-        22                                                  NaN   
-        23                                                  NaN   
-        24                                                  NaN   
-        25                                                  NaN   
-        26                                                  NaN   
-        27                                                  NaN   
-        28                                                  NaN   
-        29                                                  NaN   
-        {\ldots}                                                 {\ldots}   
-        5238                         al-Asad air base - Baghdad   
-        5239              Vancouver - Powell River - Toba Inlet   
-        5240                                           Training   
-        5241              Tortola Virgin Islands - San Juan, PR   
-        5242                         Sabine Pass - Oil Platform   
-        5243        Santiago, Dominican Republi- Providenciales   
-        5244              Bayou Penchant - Off shore oil fields   
-        5245                        New York, NY- Charlotte, NC   
-        5246                                      Coari - Manus   
-        5247                                     Rome - Bologna   
-        5248                         Newark, N.J. - Buffalo, NY   
-        5249                                                NaN   
-        5250  Entebbe, Uganda - Luxor, Egypt - Niklaev, Ukraine   
-        5251          Istanbul, Turkey - Amsterdam, Netherlands   
-        5252               Entebbe, Uganda - Mogadishu, Somalia   
-        5253                      St. Johns - Hibernia platform   
-        5254                           Oroville, CA - Butte, MT   
-        5255                    Guangzhou, China - Tokyo, Japan   
-        5256                            Miller field - Aberdeen   
-        5257                                 Militiary training   
-        5258                                  Jayapura - Wamena   
-        5259                                      Ilaga - Mulia   
-        5260                                 Canaima - Porlamar   
-        5261  Bangui, CAR- Brazzaville, Congo - Harare, Zimb{\ldots}   
-        5262                                             Patrol   
-        5263                                   Jakarta - Maduin   
-        5264                                       Goma - Isiro   
-        5265                             Rio de Janeiro - Paris   
-        5266          Lourdes de BlanSablon - Port Hope Simpson   
-        5267                                 Mechuka for Jorhat   
-        
-                                             Type Registration       cn/In  Aboard  \textbackslash{}
-        0                        Wright Flyer III          NaN           1     2.0   
-        1                               Dirigible          NaN         NaN     5.0   
-        2                        Curtiss seaplane          NaN         NaN     1.0   
-        3                  Zeppelin L-1 (airship)          NaN         NaN    20.0   
-        4                  Zeppelin L-2 (airship)          NaN         NaN    30.0   
-        5                  Zeppelin L-8 (airship)          NaN         NaN    41.0   
-        6                 Zeppelin L-10 (airship)          NaN         NaN    19.0   
-        7           Schutte-Lanz S-L-10 (airship)          NaN         NaN    20.0   
-        8                 Zeppelin L-32 (airship)          NaN         NaN    22.0   
-        9                 Zeppelin L-31 (airship)          NaN         NaN    19.0   
-        10               Super Zeppelin (airship)          NaN         NaN    28.0   
-        11                Zeppelin L-34 (airship)          NaN         NaN    20.0   
-        12                                Airship          NaN         NaN    20.0   
-        13           Schutte-Lanz S-L-9 (airship)          NaN         NaN    23.0   
-        14                Zeppelin L-22 (airship)          NaN         NaN    21.0   
-        15                Zeppelin L-43 (airship)          NaN         NaN    24.0   
-        16                Zeppelin L-23 (airship)          NaN         NaN    18.0   
-        17                Zeppelin L-44 (airship)          NaN         NaN    18.0   
-        18                Zeppelin L-59 (airship)          NaN         NaN    23.0   
-        19                Zeppelin L-70 (airship)          NaN         NaN    22.0   
-        20                Zeppelin L-53 (airship)          NaN         NaN    19.0   
-        21                      De Havilland DH-4           97         NaN     1.0   
-        22                      De Havilland DH-4           61         NaN     1.0   
-        23                      De Havilland DH-4           82         NaN     1.0   
-        24                      De Havilland DH-4          NaN         NaN     1.0   
-        25                          Curtiss R-4LM           32         NaN     1.0   
-        26                      De Havilland DH-4       G-EAHG         NaN     NaN   
-        27                      De Havilland DH.4           77         NaN     1.0   
-        28                      De Havilland DH-4           65         NaN     1.0   
-        29                      De Havilland DH-4           72         NaN     1.0   
-        {\ldots}                                   {\ldots}          {\ldots}         {\ldots}     {\ldots}   
-        5238                        Antonov An-12       S9-SAO      346908     7.0   
-        5239                  Grumman G-21A Goose       C-FPCK        1187     8.0   
-        5240                      Airbus A320-232       D-AXLA        2500     7.0   
-        5241          Rockwell International 690B      N318WA        11444     3.0   
-        5242           Bell 206-L4 Jet Ranger III       N180AL       52104     3.0   
-        5243  Britten Norman BN-2A Trislander Mk3       N650LP        1029    12.0   
-        5244                       Sikorsky S-76C        N748P      760629     9.0   
-        5245                      Airbus A320-214       N106US        1044   155.0   
-        5246                Bandeirante EMB-110P1       PT-SEA      110352    28.0   
-        5247              Cessna 650 Citation III       I-FEEV    650-0105     2.0   
-        5248            Bombardier DHC-8-402 Q400       N200WQ        4200    49.0   
-        5249                           Bell UH-1H          NaN         NaN    13.0   
-        5250                          Antonov 12V       S9-SVN     6344310     5.0   
-        5251                       Boeing 737-8F2       TC-JGE  29789/1065   134.0   
-        5252                      Ilyushin Il-76T       S9-SAB   073410301    11.0   
-        5253                       Sikorsky S-92A       C-GZCH      920048    18.0   
-        5254                     Pilatus PC-12/45       N128CM         403    14.0   
-        5255              McDonnell Douglas MD-11       N526FE   48600/560     2.0   
-        5256     Eurocopter AS 332L2 Super Puma 2          NaN         NaN    16.0   
-        5257          Fokker F-27 Friendship 400M       A-2703       10538    24.0   
-        5258        British Aerospace BAe-146-300       PK-BRD       E3189     6.0   
-        5259                         Pilatus PC-6       PK-LTJ         959    11.0   
-        5260            Cessna 208B Grand Caravan      YV-1181   208B-0695    11.0   
-        5261                     Boeing B-737-200      TL-ADM    22264/753     7.0   
-        5262                                Mi-35     EV08114          NaN    18.0   
-        5263              Lockheed C-130 Hercules       A-1325        1982   112.0   
-        5264                        Antonov An-26       9Q-CSA        5005     4.0   
-        5265                      Airbus A330-203       F-GZCP         660   228.0   
-        5266     Britten-Norman BN-2A-27 Islander      C-FJJR          424     1.0   
-        5267                        Antonov An-32          NaN         NaN    13.0   
-        
-              Fatalities  Ground                                            Summary  
-        0            1.0     0.0  During a demonstration flight, a U.S. Army fly{\ldots}  
-        1            5.0     0.0  First U.S. dirigible Akron exploded just offsh{\ldots}  
-        2            1.0     0.0  The first fatal airplane accident in Canada oc{\ldots}  
-        3           14.0     0.0  The airship flew into a thunderstorm and encou{\ldots}  
-        4           30.0     0.0  Hydrogen gas which was being vented was sucked{\ldots}  
-        5           21.0     0.0  Crashed into trees while attempting to land af{\ldots}  
-        6           19.0     0.0  Exploded and burned near Neuwerk Island,  when{\ldots}  
-        7           20.0     0.0         Crashed near the Black Sea, cause unknown.  
-        8           22.0     0.0  Shot down by British aircraft crashing in flames.  
-        9           19.0     0.0  Shot down in flames by the British 39th Home D{\ldots}  
-        10          27.0     0.0                                Crashed in a storm.  
-        11          20.0     0.0  Shot down by British anti-aircraft fire and ai{\ldots}  
-        12          20.0     0.0                           Caught fire and crashed.  
-        13          23.0     0.0  Struck by lightning and crashed into the Balti{\ldots}  
-        14          21.0     0.0  Crashed into the sea from an altitude of 3,000{\ldots}  
-        15          24.0     0.0                     Shot down by British aircraft.  
-        16          18.0     0.0                     Shot down by British aircraft.  
-        17          18.0     0.0            Shot down by French anti-aircraft fire.  
-        18          23.0     0.0  Exploded and crashed into the sea off the sout{\ldots}  
-        19          22.0     0.0  Shot down by British aircraft crashing from a {\ldots}  
-        20          19.0     0.0                     Shot down by british aircraft.  
-        21           1.0     0.0                                                NaN  
-        22           1.0     0.0  Caught fire in midair. The pilot leaped from t{\ldots}  
-        23           1.0     0.0                                                NaN  
-        24           1.0     0.0                                                NaN  
-        25           1.0     0.0                                                NaN  
-        26           NaN     NaN                                                NaN  
-        27           1.0     0.0                                                NaN  
-        28           1.0     0.0                                                NaN  
-        29           1.0     0.0                                                NaN  
-        {\ldots}          {\ldots}     {\ldots}                                                {\ldots}  
-        5238         7.0     0.0  The cargo plane, chartered by FedEx, crashed w{\ldots}  
-        5239         7.0     0.0  The charter aircraft crashed into a steep hill{\ldots}  
-        5240         7.0     0.0  The Airbus A320 was leased by XL Airways of Ge{\ldots}  
-        5241         3.0     0.0  The plane struck the side of El Yunque mountai{\ldots}  
-        5242         3.0     0.0  The helicopter ferrying workers to an off shor{\ldots}  
-        5243        12.0     0.0  The charter flight disappeared from radar 35 m{\ldots}  
-        5244         8.0     0.0  A helicopter bound for offshore oil fields wen{\ldots}  
-        5245         0.0     0.0  The plane was taking off from La Guardia Airpo{\ldots}  
-        5246        24.0     0.0  The plane was being used as an air taxi to fer{\ldots}  
-        5247         2.0     0.0  The plane, heading to Bologna to pick up a med{\ldots}  
-        5248        49.0     1.0  The commuter plane crashed while attemptiong t{\ldots}  
-        5249        13.0     0.0  The helicopter was carrying firemen to a nearb{\ldots}  
-        5250         5.0     0.0  While attemping to take off from Luxor, the ca{\ldots}  
-        5251         9.0     0.0  The plane was on final approach to Runway 18R {\ldots}  
-        5252        11.0     0.0  The cargo plane carrying and water purificatio{\ldots}  
-        5253        17.0     0.0  The pilot reported a technical malfunction and{\ldots}  
-        5254        14.0     0.0  The plane crashed 500 feet short of the runway{\ldots}  
-        5255         2.0     0.0  The cargo plane crashed and burst into flame a{\ldots}  
-        5256        16.0     0.0  The helicopter crashed 35 miles East of Crimon{\ldots}  
-        5257        24.0     0.0  While returning from a military training exerc{\ldots}  
-        5258         6.0     0.0  The cargo plane crashed into Gunung Pike mount{\ldots}  
-        5259        11.0     0.0  The passenger plane crashed in poor weather in{\ldots}  
-        5260         1.0     0.0  The plane, carrying 9 tourists, crashed 5 mile{\ldots}  
-        5261         7.0     0.0  Crashed while en route on a ferrying flight. T{\ldots}  
-        5262        18.0     0.0  The helicopter was patrolling along the Venezu{\ldots}  
-        5263        98.0     2.0  While on approach, the military transport cras{\ldots}  
-        5264         4.0     NaN  The cargo plane crashed while on approach to I{\ldots}  
-        5265       228.0     0.0  The Airbus went missing over the AtlantiOcean {\ldots}  
-        5266         1.0     0.0  The air ambulance crashed into hills while att{\ldots}  
-        5267        13.0     0.0  The military transport went missing while en r{\ldots}  
-        
-        [5241 rows x 13 columns]
+{\color{outcolor}Out[{\color{outcolor}109}]:} <bound method NDFrame.describe of              DATE  PRCP  TMAX  TMIN   RAIN
+          0      1948-01-01  0.47    51    42   True
+          1      1948-01-02  0.59    45    36   True
+          2      1948-01-03  0.42    45    35   True
+          3      1948-01-04  0.31    45    34   True
+          4      1948-01-05  0.17    45    32   True
+          5      1948-01-06  0.44    48    39   True
+          6      1948-01-07  0.41    50    40   True
+          7      1948-01-08  0.04    48    35   True
+          8      1948-01-09  0.12    50    31   True
+          9      1948-01-10  0.74    43    34   True
+          10     1948-01-11  0.01    42    32   True
+          11     1948-01-12  0.00    41    26  False
+          12     1948-01-13  0.00    45    29  False
+          13     1948-01-14  0.00    38    26  False
+          14     1948-01-15  0.00    34    31  False
+          15     1948-01-16  0.00    34    28  False
+          16     1948-01-17  0.00    35    29  False
+          17     1948-01-18  0.00    33    28  False
+          18     1948-01-19  0.00    34    27  False
+          19     1948-01-20  0.00    36    29  False
+          20     1948-01-21  0.00    48    32  False
+          21     1948-01-22  0.21    47    44   True
+          22     1948-01-23  0.00    47    43  False
+          23     1948-01-24  0.10    45    34   True
+          24     1948-01-25  0.00    46    30  False
+          25     1948-01-26  0.00    45    32  False
+          26     1948-01-27  0.00    53    33  False
+          27     1948-01-28  0.00    53    25  False
+          28     1948-01-29  0.22    42    34   True
+          29     1948-01-30  0.03    47    30   True
+          {\ldots}           {\ldots}   {\ldots}   {\ldots}   {\ldots}    {\ldots}
+          25521  2017-11-15  0.46    53    43   True
+          25522  2017-11-16  0.16    44    42   True
+          25523  2017-11-17  0.00    50    42  False
+          25524  2017-11-18  0.00    52    41  False
+          25525  2017-11-19  0.58    53    39   True
+          25526  2017-11-20  0.63    50    41   True
+          25527  2017-11-21  1.14    60    38   True
+          25528  2017-11-22  0.52    68    56   True
+          25529  2017-11-23  0.20    59    48   True
+          25530  2017-11-24  0.01    52    46   True
+          25531  2017-11-25  0.19    51    43   True
+          25532  2017-11-26  0.25    58    42   True
+          25533  2017-11-27  0.00    50    42  False
+          25534  2017-11-28  0.68    47    43   True
+          25535  2017-11-29  0.00    50    41  False
+          25536  2017-11-30  0.27    46    41   True
+          25537  2017-12-01  0.27    48    38   True
+          25538  2017-12-02  0.79    44    41   True
+          25539  2017-12-03  0.05    46    39   True
+          25540  2017-12-04  0.00    45    34  False
+          25541  2017-12-05  0.00    45    33  False
+          25542  2017-12-06  0.00    52    36  False
+          25543  2017-12-07  0.00    52    34  False
+          25544  2017-12-08  0.00    43    29  False
+          25545  2017-12-09  0.00    44    29  False
+          25546  2017-12-10  0.00    49    34  False
+          25547  2017-12-11  0.00    49    29  False
+          25548  2017-12-12  0.00    46    32  False
+          25549  2017-12-13  0.00    48    34  False
+          25550  2017-12-14  0.00    50    36  False
+          
+          [25551 rows x 5 columns]>
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}110}]:} \PY{c+c1}{\PYZsh{}check data types}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} DATE     object
+          PRCP    float64
+          TMAX      int64
+          TMIN      int64
+          RAIN     object
+          dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}change object to date time stamp}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-/usr/local/lib/python3.5/dist-packages/ipykernel\_launcher.py:1: FutureWarning: pandas.scatter\_matrix is deprecated. Use pandas.plotting.scatter\_matrix instead
-  """Entry point for launching an IPython kernel.
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} DATE    datetime64[ns]
+          PRCP           float64
+          TMAX             int64
+          TMIN             int64
+          RAIN            object
+          dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{c+c1}{\PYZsh{}check for null values}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} DATE    0
+          PRCP    3
+          TMAX    0
+          TMIN    0
+          RAIN    3
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{}check data before drop nan}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} (25551, 5)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{c+c1}{\PYZsh{}drop any nan value}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{c+c1}{\PYZsh{}check data after drop nan}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:} (25548, 5)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{c+c1}{\PYZsh{}check null values are zero}
+          \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} DATE    0
+          PRCP    0
+          TMAX    0
+          TMIN    0
+          RAIN    0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{c+c1}{\PYZsh{}Change rain predicted 1 and zero so logistic regression can be applied.}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RAIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RAIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}convert date to year and month columns (new)}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{year}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{month}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{} new column if the months are in winter and set 1 or 0}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{} new column if the months are in spring and set 1 or 0}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{c+c1}{\PYZsh{} new column if the months are in summer and set 1 or 0}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} new column if the months are in autumn and set 1 or 0}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autumn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{)}
+          \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autumn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autumn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:}         DATE  PRCP  TMAX  TMIN  RAIN  year  month  winter  spring  summer  \textbackslash{}
+          0 1948-01-01  0.47    51    42     1  1948      1       1       0       0   
+          1 1948-01-02  0.59    45    36     1  1948      1       1       0       0   
+          2 1948-01-03  0.42    45    35     1  1948      1       1       0       0   
+          3 1948-01-04  0.31    45    34     1  1948      1       1       0       0   
+          4 1948-01-05  0.17    45    32     1  1948      1       1       0       0   
+          
+             autumn  
+          0       0  
+          1       0  
+          2       0  
+          3       0  
+          4       0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:}                 PRCP       TMAX       TMIN      RAIN  winter  spring  summer  \textbackslash{}
+          year month                                                                     
+          1948 1      0.144839  43.548387  32.483871  0.516129     1.0     0.0     0.0   
+               2      0.181034  45.172414  32.620690  0.551724     1.0     0.0     0.0   
+               3      0.118710  51.096774  34.709677  0.451613     0.0     1.0     0.0   
+               4      0.125000  53.600000  37.300000  0.666667     0.0     1.0     0.0   
+               5      0.153548  61.387097  44.354839  0.516129     0.0     1.0     0.0   
+               6      0.069667  71.700000  51.700000  0.266667     0.0     0.0     1.0   
+               7      0.049355  73.129032  51.580645  0.258065     0.0     0.0     1.0   
+               8      0.060323  69.354839  53.000000  0.483871     0.0     0.0     1.0   
+               9      0.128333  67.066667  47.166667  0.333333     0.0     0.0     0.0   
+               10     0.075161  58.838710  41.967742  0.419355     0.0     0.0     0.0   
+               11     0.202000  47.733333  36.366667  0.700000     0.0     0.0     0.0   
+               12     0.197742  41.161290  30.806452  0.645161     1.0     0.0     0.0   
+          1949 1      0.024839  37.258065  22.612903  0.258065     1.0     0.0     0.0   
+               2      0.210357  44.071429  30.535714  0.607143     1.0     0.0     0.0   
+               3      0.114194  53.225806  37.870968  0.419355     0.0     1.0     0.0   
+               4      0.039333  59.400000  40.766667  0.366667     0.0     1.0     0.0   
+               5      0.041935  68.419355  46.161290  0.161290     0.0     1.0     0.0   
+               6      0.031000  70.800000  47.300000  0.400000     0.0     0.0     1.0   
+               7      0.033548  74.064516  51.096774  0.225806     0.0     0.0     1.0   
+               8      0.014516  74.451613  52.935484  0.225806     0.0     0.0     1.0   
+               9      0.047667  71.000000  50.500000  0.200000     0.0     0.0     0.0   
+               10     0.124194  56.612903  40.516129  0.387097     0.0     0.0     0.0   
+               11     0.226000  56.166667  42.633333  0.600000     0.0     0.0     0.0   
+               12     0.170968  43.516129  33.225806  0.741935     1.0     0.0     0.0   
+          1950 1      0.287419  30.677419  19.064516  0.677419     1.0     0.0     0.0   
+               2      0.205000  46.107143  33.857143  0.785714     1.0     0.0     0.0   
+               3      0.270968  47.935484  36.161290  0.741935     0.0     1.0     0.0   
+               4      0.097333  55.233333  37.466667  0.533333     0.0     1.0     0.0   
+               5      0.025161  61.645161  41.612903  0.354839     0.0     1.0     0.0   
+               6      0.019667  69.766667  50.500000  0.433333     0.0     0.0     1.0   
+          {\ldots}              {\ldots}        {\ldots}        {\ldots}       {\ldots}     {\ldots}     {\ldots}     {\ldots}   
+          2015 7      0.002903  82.580645  59.903226  0.064516     0.0     0.0     1.0   
+               8      0.105806  78.967742  58.451613  0.193548     0.0     0.0     1.0   
+               9      0.027667  68.533333  52.466667  0.300000     0.0     0.0     0.0   
+               10     0.155161  63.580645  50.903226  0.451613     0.0     0.0     0.0   
+               11     0.279000  49.433333  38.233333  0.666667     0.0     0.0     0.0   
+               12     0.361613  47.064516  38.870968  0.806452     1.0     0.0     0.0   
+          2016 1      0.240323  49.064516  38.354839  0.645161     1.0     0.0     0.0   
+               2      0.205862  53.551724  41.241379  0.724138     1.0     0.0     0.0   
+               3      0.178065  56.419355  42.290323  0.612903     0.0     1.0     0.0   
+               4      0.039667  65.900000  47.500000  0.300000     0.0     1.0     0.0   
+               5      0.030323  68.838710  50.709677  0.225806     0.0     1.0     0.0   
+               6      0.059000  73.100000  53.933333  0.333333     0.0     0.0     1.0   
+               7      0.023226  75.967742  57.645161  0.193548     0.0     0.0     1.0   
+               8      0.005484  79.548387  57.903226  0.096774     0.0     0.0     1.0   
+               9      0.035000  69.566667  52.866667  0.333333     0.0     0.0     0.0   
+               10     0.324194  60.548387  49.096774  0.806452     0.0     0.0     0.0   
+               11     0.216000  56.033333  45.700000  0.733333     0.0     0.0     0.0   
+               12     0.124839  41.903226  34.000000  0.645161     1.0     0.0     0.0   
+          2017 1      0.136129  43.677419  32.032258  0.354839     1.0     0.0     0.0   
+               2      0.316071  46.642857  36.000000  0.785714     1.0     0.0     0.0   
+               3      0.236129  51.548387  40.548387  0.806452     0.0     1.0     0.0   
+               4      0.140333  57.300000  43.966667  0.766667     0.0     1.0     0.0   
+               5      0.073548  67.000000  48.838710  0.451613     0.0     1.0     0.0   
+               6      0.050667  72.100000  53.700000  0.200000     0.0     0.0     1.0   
+               7      0.000000  78.322581  56.322581  0.000000     0.0     0.0     1.0   
+               8      0.000645  81.516129  59.000000  0.032258     0.0     0.0     1.0   
+               9      0.019667  73.800000  55.566667  0.266667     0.0     0.0     0.0   
+               10     0.154839  61.096774  45.290323  0.387097     0.0     0.0     0.0   
+               11     0.287667  51.333333  42.000000  0.800000     0.0     0.0     0.0   
+               12     0.079286  47.214286  34.142857  0.214286     1.0     0.0     0.0   
+          
+                      autumn  
+          year month          
+          1948 1         0.0  
+               2         0.0  
+               3         0.0  
+               4         0.0  
+               5         0.0  
+               6         0.0  
+               7         0.0  
+               8         0.0  
+               9         1.0  
+               10        1.0  
+               11        1.0  
+               12        0.0  
+          1949 1         0.0  
+               2         0.0  
+               3         0.0  
+               4         0.0  
+               5         0.0  
+               6         0.0  
+               7         0.0  
+               8         0.0  
+               9         1.0  
+               10        1.0  
+               11        1.0  
+               12        0.0  
+          1950 1         0.0  
+               2         0.0  
+               3         0.0  
+               4         0.0  
+               5         0.0  
+               6         0.0  
+          {\ldots}            {\ldots}  
+          2015 7         0.0  
+               8         0.0  
+               9         1.0  
+               10        1.0  
+               11        1.0  
+               12        0.0  
+          2016 1         0.0  
+               2         0.0  
+               3         0.0  
+               4         0.0  
+               5         0.0  
+               6         0.0  
+               7         0.0  
+               8         0.0  
+               9         1.0  
+               10        1.0  
+               11        1.0  
+               12        0.0  
+          2017 1         0.0  
+               2         0.0  
+               3         0.0  
+               4         0.0  
+               5         0.0  
+               6         0.0  
+               7         0.0  
+               8         0.0  
+               9         1.0  
+               10        1.0  
+               11        1.0  
+               12        0.0  
+          
+          [840 rows x 8 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} PRCP         0.106222
+          TMAX        59.543056
+          TMIN        44.513387
+          RAIN         0.426648
+          year      1982.474597
+          month        6.519140
+          winter       0.246634
+          spring       0.252075
+          summer       0.251996
+          autumn       0.249295
+          dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{c+c1}{\PYZsh{}select feature columns to predict the outcome for rain}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{n}{weather\PYZus{}data\PYZus{}model}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{year} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2010}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{year} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1949}\PY{p}{)}\PY{p}{]}
+          \PY{n}{feature\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PRCP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMAX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autumn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X} \PY{o}{=} \PY{n}{weather\PYZus{}data\PYZus{}model}\PY{p}{[}\PY{n}{feature\PYZus{}cols}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{weather\PYZus{}data\PYZus{}model}\PY{o}{.}\PY{n}{RAIN}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:}                PRCP          TMAX          TMIN        winter        autumn  \textbackslash{}
+          count  16434.000000  16434.000000  16434.000000  16434.000000  16434.000000   
+          mean       0.104082     59.380370     44.377814      0.245345      0.251004   
+          std        0.237187     12.683786      8.810020      0.430305      0.433604   
+          min        0.000000      4.000000      0.000000      0.000000      0.000000   
+          25\%        0.000000     50.000000     38.000000      0.000000      0.000000   
+          50\%        0.000000     58.000000     44.500000      0.000000      0.000000   
+          75\%        0.100000     69.000000     52.000000      0.000000      1.000000   
+          max        5.020000    103.000000     71.000000      1.000000      1.000000   
+          
+                       summer        spring  
+          count  16434.000000  16434.000000  
+          mean       0.250639      0.253012  
+          std        0.433394      0.434751  
+          min        0.000000      0.000000  
+          25\%        0.000000      0.000000  
+          50\%        0.000000      0.000000  
+          75\%        1.000000      1.000000  
+          max        1.000000      1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} count    16434.000000
+          mean         0.425459
+          std          0.494428
+          min          0.000000
+          25\%          0.000000
+          50\%          0.000000
+          75\%          1.000000
+          max          1.000000
+          Name: RAIN, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{c+c1}{\PYZsh{} fit a logistic regression model }
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                    penalty='l2', random\_state=None, solver='liblinear', tol=0.0001,
+                    verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{coeffs1} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{feature\PYZus{}cols}\PY{p}{,} \PY{n}{logreg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{list}\PY{p}{(}\PY{n}{coeffs1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:} [('PRCP', 38.28755539536319),
+           ('TMAX', -0.17273380056792167),
+           ('TMIN', 0.18434098274593252),
+           ('winter', -0.09953401128273849),
+           ('autumn', -0.12460158998011665),
+           ('summer', -0.03623502641694269),
+           ('spring', 0.5198056454154808)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{c+c1}{\PYZsh{}calculate accuracy between test and train data}
+          \PY{n}{y\PYZus{}pred\PYZus{}rain} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}rain}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9331872946330778
 
     \end{Verbatim}
 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{c+c1}{\PYZsh{} Build confusion matrix}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{n}{compare} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{y\PYZus{}pred\PYZus{}rain}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{cm} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{compare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{compare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{cm}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[3173   13]
+ [ 353 1939]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{sensitivity} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sensitivity : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sensitivity} \PY{p}{)}
+          
+          \PY{n}{specificity} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Specificity : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{specificity}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sensitivity :  0.9959196484620213
+Specificity :  0.8459860383944153
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{} plot the predicted probabilities}
+          \PY{n}{y\PYZus{}pred\PYZus{}prob} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}prob}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted probability of Rain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}5}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35455320>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e353bfc88>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35366c18>],
-               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e3537aa20>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e35331c18>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e3534f7b8>],
-               [<matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352dd3c8>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352986d8>,
-                <matplotlib.axes.\_subplots.AxesSubplot object at 0x7f5e352bb978>]],
-              dtype=object)
+{\color{outcolor}Out[{\color{outcolor}137}]:} Text(0,0.5,'Frequency')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_2.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plane\PYZus{}crash\PYZus{}data}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aboard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fatalities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{}ROC graph}
+          
+          \PY{c+c1}{\PYZsh{} Import the Plotting library so we can draw the graph}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{c+c1}{\PYZsh{} Store the false positive rate(fpr), true positive rate (tpr) in vectors for use in the graph}
+          \PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}prob}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Store the Area Under the Curve (AUC) so we can annotate our graph with theis metric}
+          \PY{n}{roc\PYZus{}auc} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{auc}\PY{p}{(}\PY{n}{fpr}\PY{p}{,}\PY{n}{tpr}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Plot the ROC Curve}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{lw} \PY{o}{=} \PY{l+m+mi}{2}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC curve (area = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{roc\PYZus{}auc}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Receiver operating characteristic example}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f8cb6e98470>
-\end{Verbatim}
-            
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{cross\PYZus{}validation}
+          \PY{n}{kf} \PY{o}{=} \PY{n}{cross\PYZus{}validation}\PY{o}{.}\PY{n}{KFold}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weather\PYZus{}data}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{modeldata}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PRCP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMAX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{autumn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{y}\PY{o}{=}\PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{RAIN}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+          \PY{n}{mse\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{n}\PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZti{}\PYZti{}\PYZti{}\PYZti{} CROSS VALIDATION each fold \PYZti{}\PYZti{}\PYZti{}\PYZti{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{kf}\PY{p}{:}
+              \PY{n}{lm} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{modeldata}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{)}
+              \PY{n}{mse\PYZus{}values}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{modeldata}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lm}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{modeldata}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+              \PY{n}{n}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse\PYZus{}values}\PY{p}{[}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scores}\PY{p}{[}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZti{}\PYZti{}\PYZti{}\PYZti{} SUMMARY OF CROSS VALIDATION \PYZti{}\PYZti{}\PYZti{}\PYZti{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of MSE for all folds:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mse\PYZus{}values}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of R2 for all folds:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{} CROSS VALIDATION each fold \textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}
+Model 1
+MSE: 0.14139371719695926
+R2: 0.4287969479734063
+Model 2
+MSE: 0.13669515969847212
+R2: 0.42878869046710005
+Model 3
+MSE: 0.14184381159049922
+R2: 0.4288649186297691
+Model 4
+MSE: 0.13809723955941877
+R2: 0.42883480102391475
+Model 5
+MSE: 0.14117669457380877
+R2: 0.4288145695016286
+\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{} SUMMARY OF CROSS VALIDATION \textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}
+Mean of MSE for all folds: 0.13984132452383163
+Mean of R2 for all folds: 0.4288199855191637
+
+    \end{Verbatim}
+
 
     % Add a bibliography block to the postdoc
     
